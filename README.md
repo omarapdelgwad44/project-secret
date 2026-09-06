@@ -1,4 +1,4 @@
-# Happy Birthday, Jana
+# Happy Birthday, ####
 
 A mobile-first birthday gift site for **Jana** (October 5). Open the wrapped gift, watch the ribbon untie, then celebrate with balloons, falling roses, a heart-written name, and candles to blow out.
 
@@ -22,7 +22,7 @@ Then visit `http://localhost:8080`.
 
    `https://<your-username>.github.io/<repo-name>/`
 
-Share that link with Jana so she can open it on her phone.
+Share that link with #### so she can open it on her phone.
 
 ## Replace the music
 
