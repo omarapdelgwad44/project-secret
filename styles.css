@@ -684,17 +684,19 @@ body.is-blown .glow {
 .petal,
 .balloon {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 8%;
   will-change: transform, opacity;
 }
 
 .petal {
+  top: -12vh;
   font-size: 1.15rem;
   animation: fall linear infinite;
 }
 
 .balloon {
+  top: auto;
+  bottom: -18vh;
   width: 34px;
   height: 44px;
   border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
@@ -725,28 +727,28 @@ body.is-blown .glow {
 
 @keyframes fall {
   0% {
-    transform: translate3d(var(--x), -8vh, 0) rotate(0deg);
+    transform: translateY(0) rotate(0deg);
     opacity: 0;
   }
   8% {
     opacity: 0.95;
   }
   100% {
-    transform: translate3d(calc(var(--x) + var(--drift)), 110vh, 0) rotate(220deg);
+    transform: translateY(120vh) rotate(220deg);
     opacity: 0.15;
   }
 }
 
 @keyframes floatUp {
   0% {
-    transform: translate3d(var(--x), 110vh, 0);
+    transform: translateY(0);
     opacity: 0;
   }
   10% {
     opacity: 0.85;
   }
   100% {
-    transform: translate3d(calc(var(--x) + var(--drift)), -20vh, 0);
+    transform: translateY(-130vh);
     opacity: 0;
   }
 }

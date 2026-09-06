@@ -186,8 +186,7 @@
     for (let i = 0; i < 8; i += 1) {
       const b = document.createElement("span");
       b.className = "balloon";
-      b.style.setProperty("--x", `${8 + Math.random() * 84}vw`);
-      b.style.setProperty("--drift", `${(Math.random() * 40 - 20).toFixed(1)}vw`);
+      b.style.left = `${8 + Math.random() * 76}vw`;
       b.style.background = `linear-gradient(160deg, #fff6, ${palette[i % palette.length]})`;
       b.style.animationDelay = `${i * 0.22}s`;
       b.style.animationDuration = `${6.8 + Math.random() * 2.4}s`;
@@ -202,8 +201,7 @@
       const el = document.createElement("span");
       el.className = "petal";
       el.textContent = glyphs[i % glyphs.length];
-      el.style.setProperty("--x", `${Math.random() * 100}vw`);
-      el.style.setProperty("--drift", `${(Math.random() * 36 - 18).toFixed(1)}vw`);
+      el.style.left = `${4 + Math.random() * 88}vw`;
       el.style.animationDelay = `${Math.random() * 2.4}s`;
       el.style.animationDuration = `${6 + Math.random() * 6}s`;
       el.style.fontSize = `${0.95 + Math.random() * 0.7}rem`;
