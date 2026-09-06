@@ -1,38 +1,42 @@
-# A little something
+# Happy Birthday, ####
 
-A private, mobile-first birthday surprise. Three quiet scenes: a wrapped card, a letter, then the finale.
-
-Live: https://omarapdelgwad44.github.io/project-secret/
+A mobile-first birthday gift site for **** (October 5). Open the wrapped gift, watch the ribbon untie, then celebrate with balloons, falling roses, a heart-written name, and candles to blow out.
 
 ## Preview locally
+
+Open `index.html` in a browser, or from this folder:
 
 ```bash
 python -m http.server 8080
 ```
 
-Open `http://localhost:8080`.
+Then visit `http://localhost:8080`.
 
-## Where to change things
+## Deploy on GitHub Pages
 
-Edit **[`config.js`](config.js)** only:
+1. Create a public GitHub repository and push this folder to the `main` branch.
+2. On GitHub, open **Settings → Pages**.
+3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
+4. Set branch to `main` and folder to `/ (root)`.
+5. Save. After a minute, the site will be at:
 
-| What | Field |
-| --- | --- |
-| Welcome line | `welcome` |
-| Date | `date` |
-| Ribbon button | `untie` |
-| Letter title | `letterTitle` |
-| Letter text | `letterBody` |
-| Surprise button | `openSurprise` |
-| Finale heading | `finaleTitle` |
-| Name in hearts | `name` |
-| Closing line | `finaleMessage` (`finaleMessageLang`: `"ar"` or `"en"`) |
-| Photo | `photo`: `"assets/photo.jpg"` (leave `""` for the heart placeholder) |
-| Music | replace `assets/audio/bg.mp3` (and optional `bg.wav`) |
-| Replay label | `replay` |
+   `https://<your-username>.github.io/<repo-name>/`
 
-Colors live in [`styles.css`](styles.css) under `:root` (`--ivory`, `--burgundy`, `--wine`, `--rose`, `--gold`, `--ink`).
+Share that link with #### so she can open it on her phone.
 
-## GitHub Pages
+## Replace the music
 
-Files sit at the repo root. In **Settings → Pages**, deploy `main` from `/ (root)`.
+The included loop is an original music-box piece (royalty-free). To use a song she loves, replace:
+
+- `assets/audio/bg.mp3`
+- `assets/audio/bg.wav` (optional fallback)
+
+Keep the same filenames, or update the `<audio>` tags in `index.html`. Music starts when she taps **Open your gift** (phones block autoplay until a tap). Use the speaker button in the corner to mute.
+
+## Customize the final line
+
+Edit this line in `index.html`:
+
+```html
+<p class="final-line" id="finalLine">For ####, with all my love</p>
+```
