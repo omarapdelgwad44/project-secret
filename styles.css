@@ -553,40 +553,49 @@ body.is-unwrapping .gift {
   appearance: none;
   border: 0;
   background: transparent;
-  padding: 8px 10px 0;
-  min-width: 200px;
+  padding: 0;
+  width: min(230px, 72vw);
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  display: block;
 }
 
-.candles {
-  display: flex;
-  gap: 28px;
-  align-items: flex-end;
-  height: 46px;
-  z-index: 2;
+.cake-art {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 10px rgba(0, 0, 0, 0.28));
 }
 
 .candle {
-  position: relative;
-  width: 6px;
-  height: 34px;
-  border-radius: 1px;
-  background: linear-gradient(90deg, #f7efe6, #e4cba6);
+  position: absolute;
+  width: 14px;
+  height: 18px;
+  background: transparent;
+  z-index: 2;
 }
 
-.candle:nth-child(2) {
-  height: 40px;
+.candle.c1 {
+  left: 35.5%;
+  top: 11%;
+}
+
+.candle.c2 {
+  left: 46.8%;
+  top: 8.5%;
+}
+
+.candle.c3 {
+  left: 58%;
+  top: 11%;
 }
 
 .flame {
   position: absolute;
   left: 50%;
-  top: -15px;
+  top: 0;
   width: 11px;
-  height: 17px;
+  height: 16px;
   transform: translateX(-50%);
   border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
   background: radial-gradient(circle at 50% 70%, #fff 0%, #ffe08a 30%, #ff8a1a 78%, transparent 82%);
@@ -597,19 +606,13 @@ body.is-unwrapping .gift {
 .smoke {
   position: absolute;
   left: 50%;
-  top: -8px;
+  top: 6px;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: rgba(230, 220, 220, 0.55);
   transform: translateX(-50%);
   opacity: 0;
-}
-
-.cake-art {
-  width: min(58vw, 190px);
-  margin-top: -8px;
-  filter: drop-shadow(0 12px 10px rgba(0, 0, 0, 0.28));
 }
 
 body.is-blown .flame {
@@ -755,11 +758,6 @@ body.is-blown .wish-btn {
     height: 96px;
     opacity: 0.18;
   }
-
-  .candles {
-    height: 34px;
-    gap: 22px;
-  }
 }
 
 @media (max-height: 720px) {
@@ -776,8 +774,8 @@ body.is-blown .wish-btn {
     height: 92px;
   }
 
-  .cake-art {
-    width: min(52vw, 160px);
+  .cake {
+    width: min(190px, 64vw);
   }
 
   .final-line {
