@@ -1,6 +1,6 @@
 # Happy Birthday, ####
 
-A mobile-first birthday gift site for **Jana** (October 5). Open the wrapped gift, watch the ribbon untie, then celebrate with balloons, falling roses, a heart-written name, and candles to blow out.
+A mobile-first birthday gift site for **** (October 5). Open the wrapped gift, watch the ribbon untie, then celebrate with balloons, falling roses, a heart-written name, and candles to blow out.
 
 ## Preview locally
 
@@ -38,5 +38,5 @@ Keep the same filenames, or update the `<audio>` tags in `index.html`. Music sta
 Edit this line in `index.html`:
 
 ```html
-<p class="final-line" id="finalLine">For Jana, with all my love</p>
+<p class="final-line" id="finalLine">For ####, with all my love</p>
 ```
