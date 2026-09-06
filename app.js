@@ -7,7 +7,6 @@
   const giftScene = document.getElementById("giftScene");
   const celebrateScene = document.getElementById("celebrateScene");
   const titleEl = document.getElementById("title");
-  const nameText = document.getElementById("nameText");
   const nameCanvas = document.getElementById("nameCanvas");
   const cakeArea = document.getElementById("cakeArea");
   const cake = document.getElementById("cake");
@@ -317,8 +316,8 @@
       ty: p.y,
       x: p.x + (Math.random() - 0.5) * 18,
       y: p.y - 28 - Math.random() * 36,
-      size: 5.2 + (i % 3),
-      color: i % 2 === 0 ? "#e45a73" : "#d24a62",
+        size: 6.4 + (i % 3),
+        color: i % 3 === 0 ? "#ff6b81" : "#e45a73",
       born: performance.now() + i * 28,
       visible: false,
     }));
@@ -392,9 +391,6 @@
     writeNameWithHearts();
 
     await wait(2800);
-    nameText.classList.add("is-in");
-
-    await wait(900);
     cakeArea.hidden = false;
     cakeArea.classList.add("is-in");
   }
@@ -407,7 +403,7 @@
       giftScene.hidden = true;
       celebrateScene.hidden = false;
       titleEl.textContent = "Happy Birthday to you";
-      nameText.classList.add("is-in");
+      writeNameWithHearts();
       cakeArea.hidden = false;
       cakeArea.classList.add("is-in");
       spawnFalling();
