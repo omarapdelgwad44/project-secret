@@ -1,0 +1,20 @@
+window.GIFT = {
+  pageTitle: "A little something, just for you",
+  description: "A private birthday surprise for Jana — October 5.",
+  welcome: "A little something, just for you",
+  date: "October 5",
+  untie: "Untie the ribbon",
+  letterTitle: "A message for you",
+  letterBody:
+    "Some moments are simple, but they stay with us forever.\nThis little surprise was made especially for you,\nwith love, warmth, and a heart full of beautiful memories.",
+  openSurprise: "Open your surprise",
+  finaleTitle: "Happy Birthday",
+  name: "Jana",
+  finaleMessage: "الصغنن حجي كبر سنة 🌚",
+  finaleMessageLang: "ar",
+  photo: "",
+  photoAlt: "A photograph for Jana",
+  musicSrc: "assets/audio/bg.mp3",
+  musicFallback: "assets/audio/bg.wav",
+  replay: "Replay",
+};
