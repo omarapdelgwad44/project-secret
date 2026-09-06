@@ -24,7 +24,8 @@
 html,
 body {
   margin: 0;
-  height: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
   overflow: hidden;
   background: var(--bg);
   color: var(--ink);
@@ -41,17 +42,15 @@ body {
 
 .grain,
 .vignette,
-.glow,
-.bloom {
+.glow {
   pointer-events: none;
   position: fixed;
   inset: 0;
 }
 
 .grain {
-  z-index: 12;
-  opacity: 0.16;
-  mix-blend-mode: overlay;
+  z-index: 2;
+  opacity: 0.08;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
 }
 
@@ -66,10 +65,14 @@ body {
 }
 
 .bloom {
+  pointer-events: none;
+  position: fixed;
   z-index: 1;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   filter: blur(28px);
-  opacity: 0.35;
+  opacity: 0.28;
 }
 
 .bloom-a {
@@ -132,17 +135,18 @@ body {
   }
 }
 
-.defs {
-  position: absolute;
-}
-
 .stage {
   position: relative;
   z-index: 7;
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  padding: calc(22px + var(--safe-top)) 20px calc(26px + var(--safe-bottom));
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: calc(16px + var(--safe-top)) 16px calc(18px + var(--safe-bottom));
 }
 
 .sound-toggle[hidden] {
@@ -187,11 +191,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
+  width: min(100%, 440px);
 }
 
 .flourish {
-  width: min(70vw, 240px);
+  width: min(64vw, 220px);
   color: var(--gold);
   opacity: 0.7;
 }
@@ -200,24 +205,22 @@ body {
   margin: 0;
   font-family: "Cormorant Garamond", Georgia, serif;
   font-style: italic;
-  font-size: 1.2rem;
+  font-size: clamp(1.02rem, 4.6vw, 1.2rem);
   color: var(--blush);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
 }
 
 .gift {
-  width: min(74vw, 270px);
-  height: min(80vw, 300px);
-  padding-top: 8%;
+  width: min(64vw, 240px);
+  height: min(70vw, 250px);
+  padding-top: 18px;
+  overflow: visible;
 }
 
 .parcel {
   position: relative;
   width: 100%;
-  height: 90%;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.5));
+  height: 100%;
   animation: sway 5.5s ease-in-out infinite;
 }
 
@@ -268,6 +271,7 @@ body {
 .box-body {
   inset: 18% 0 0;
   border-radius: 10px 10px 14px 14px;
+  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.42);
 }
 
 .lid {
@@ -304,11 +308,10 @@ body {
 
 .bow {
   position: absolute;
-  right: -6%;
-  top: -4%;
-  width: 48%;
+  right: 2%;
+  top: -8%;
+  width: 42%;
   z-index: 5;
-  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.28));
 }
 
 .bow svg {
@@ -319,11 +322,11 @@ body {
 
 .seal {
   position: absolute;
-  left: 10%;
-  top: 58%;
+  left: 12%;
+  top: 56%;
   z-index: 6;
-  width: 58px;
-  height: 58px;
+  width: 48px;
+  height: 48px;
   border-radius: 46% 54% 48% 52% / 50% 44% 56% 50%;
   background: radial-gradient(circle at 35% 30%, #c45c5c, #7a242c 58%, #3d1014);
   color: #f3d9b0;
@@ -369,10 +372,11 @@ body {
   font-family: Outfit, sans-serif;
   font-size: 0.92rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
   box-shadow: 0 0 0 1px rgba(217, 188, 122, 0.08), 0 10px 24px rgba(0, 0, 0, 0.2);
+  max-width: 92vw;
 }
 
 .open-btn:active,
@@ -440,8 +444,8 @@ body.is-unwrapping .gift {
 
 @keyframes lidLift {
   to {
-    transform: rotateX(-118deg) translateY(-6px);
-    opacity: 0.25;
+    transform: translateY(-55%);
+    opacity: 0;
   }
 }
 
@@ -468,12 +472,12 @@ body.is-unwrapping .gift {
 
 .title {
   margin: 0;
-  min-height: 2.4em;
+  min-height: 0;
   font-family: "Cormorant Garamond", Georgia, serif;
   font-weight: 600;
   font-style: italic;
-  font-size: clamp(1.7rem, 7.4vw, 2.5rem);
-  line-height: 1.25;
+  font-size: clamp(1.35rem, 6.2vw, 2.3rem);
+  line-height: 1.2;
   color: var(--ivory);
 }
 
@@ -501,7 +505,7 @@ body.is-unwrapping .gift {
 .name-stage {
   position: relative;
   width: min(92vw, 420px);
-  height: min(34vw, 168px);
+  height: min(24vw, 128px);
   margin-top: 2px;
 }
 
@@ -603,7 +607,7 @@ body.is-unwrapping .gift {
 }
 
 .cake-art {
-  width: 210px;
+  width: min(58vw, 190px);
   margin-top: -8px;
   filter: drop-shadow(0 12px 10px rgba(0, 0, 0, 0.28));
 }
@@ -728,15 +732,56 @@ body.is-blown .wish-btn {
 
 @media (min-width: 700px) {
   .gift {
-    width: 280px;
-    height: 310px;
-    padding-top: 24px;
+    width: 260px;
+    height: 280px;
+    padding-top: 22px;
+  }
+
+  .seal {
+    width: 56px;
+    height: 56px;
   }
 
   .open-btn:hover,
   .wish-btn:hover,
   .sound-toggle:hover {
     background: rgba(217, 188, 122, 0.08);
+  }
+}
+
+@media (max-width: 480px) {
+  .bloom {
+    width: 96px;
+    height: 96px;
+    opacity: 0.18;
+  }
+
+  .candles {
+    height: 34px;
+    gap: 22px;
+  }
+}
+
+@media (max-height: 720px) {
+  .flourish {
+    display: none;
+  }
+
+  .gift-scene,
+  .celebrate-scene {
+    gap: 8px;
+  }
+
+  .name-stage {
+    height: 92px;
+  }
+
+  .cake-art {
+    width: min(52vw, 160px);
+  }
+
+  .final-line {
+    font-size: 1.08rem;
   }
 }
 

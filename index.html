@@ -32,26 +32,6 @@
     <div class="flash" id="flash" aria-hidden="true"></div>
     <div class="balloons" id="balloons" aria-hidden="true"></div>
 
-    <svg class="defs" width="0" height="0" aria-hidden="true">
-      <defs>
-        <linearGradient id="silk" x1="0" y1="0" x2="0.2" y2="1">
-          <stop offset="0%" stop-color="#f7c9d0" />
-          <stop offset="38%" stop-color="#d45c72" />
-          <stop offset="72%" stop-color="#a8334c" />
-          <stop offset="100%" stop-color="#6d1c30" />
-        </linearGradient>
-        <linearGradient id="silkSoft" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#ffe6ea" />
-          <stop offset="100%" stop-color="#c94b63" />
-        </linearGradient>
-        <radialGradient id="wax" cx="38%" cy="32%" r="70%">
-          <stop offset="0%" stop-color="#b3474a" />
-          <stop offset="55%" stop-color="#7a242c" />
-          <stop offset="100%" stop-color="#4a1418" />
-        </radialGradient>
-      </defs>
-    </svg>
-
     <button
       class="sound-toggle"
       id="soundToggle"
@@ -102,6 +82,18 @@
             </div>
             <div class="bow" aria-hidden="true">
               <svg viewBox="0 0 140 110">
+                <defs>
+                  <linearGradient id="silk" x1="0" y1="0" x2="0.2" y2="1">
+                    <stop offset="0%" stop-color="#f7c9d0" />
+                    <stop offset="38%" stop-color="#d45c72" />
+                    <stop offset="72%" stop-color="#a8334c" />
+                    <stop offset="100%" stop-color="#6d1c30" />
+                  </linearGradient>
+                  <linearGradient id="silkSoft" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#ffe6ea" />
+                    <stop offset="100%" stop-color="#c94b63" />
+                  </linearGradient>
+                </defs>
                 <path
                   fill="url(#silk)"
                   d="M68 50C52 66 30 92 22 104c8-4 22-18 34-32 4-5 8-12 12-22z"

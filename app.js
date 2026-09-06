@@ -197,7 +197,7 @@
 
   function spawnFalling() {
     const tpls = ["tplRose", "tplHeart", "tplSpark", "tplRose", "tplHeart"];
-    const count = reduceMotion ? 5 : 16;
+    const count = reduceMotion || window.innerWidth < 500 ? 8 : 16;
     for (let i = 0; i < count; i += 1) {
       const tpl = document.getElementById(tpls[i % tpls.length]);
       const el = tpl.content.firstElementChild.cloneNode(true);
@@ -210,7 +210,7 @@
   }
 
   function burstConfetti() {
-    const count = reduceMotion ? 24 : 90;
+    const count = reduceMotion || window.innerWidth < 500 ? 18 : 70;
     for (let i = 0; i < count; i += 1) {
       confetti.push({
         x: window.innerWidth * 0.5 + (Math.random() - 0.5) * 80,
