@@ -33,11 +33,18 @@
 
   const COLORS = ["#e8c872", "#f7efe6", "#e8b4b8", "#d24a62", "#f0d58a"];
 
+  const phone = document.querySelector(".phone");
+
+  function viewSize() {
+    const w = phone.clientWidth || window.innerWidth;
+    const h = phone.clientHeight || window.innerHeight;
+    return { w, h };
+  }
+
   function resizeFx() {
-    fx.width = Math.floor(window.innerWidth * devicePixelRatio);
-    fx.height = Math.floor(window.innerHeight * devicePixelRatio);
-    fx.style.width = `${window.innerWidth}px`;
-    fx.style.height = `${window.innerHeight}px`;
+    const { w, h } = viewSize();
+    fx.width = Math.floor(w * devicePixelRatio);
+    fx.height = Math.floor(h * devicePixelRatio);
     fxCtx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
   }
 
@@ -51,6 +58,10 @@
   }
 
   window.addEventListener("resize", () => {
+    resizeFx();
+    resizeName();
+  });
+  window.visualViewport?.addEventListener("resize", () => {
     resizeFx();
     resizeName();
   });
@@ -183,10 +194,11 @@
 
   function spawnBalloons() {
     const palette = ["#e8b4b8", "#f7efe6", "#e8c872", "#d24a62", "#f3c9d0"];
-    for (let i = 0; i < 8; i += 1) {
+    const total = 5;
+    for (let i = 0; i < total; i += 1) {
       const b = document.createElement("span");
       b.className = "balloon";
-      b.style.left = `${8 + Math.random() * 76}vw`;
+      b.style.left = `${8 + Math.random() * 76}%`;
       b.style.background = `linear-gradient(160deg, #fff6, ${palette[i % palette.length]})`;
       b.style.animationDelay = `${i * 0.22}s`;
       b.style.animationDuration = `${6.8 + Math.random() * 2.4}s`;
@@ -196,12 +208,12 @@
 
   function spawnFalling() {
     const glyphs = ["🌹", "💗", "🤍", "✨", "🌷"];
-    const count = reduceMotion || window.innerWidth < 500 ? 8 : 18;
+    const count = reduceMotion ? 6 : 8;
     for (let i = 0; i < count; i += 1) {
       const el = document.createElement("span");
       el.className = "petal";
       el.textContent = glyphs[i % glyphs.length];
-      el.style.left = `${4 + Math.random() * 88}vw`;
+      el.style.left = `${4 + Math.random() * 88}%`;
       el.style.animationDelay = `${Math.random() * 2.4}s`;
       el.style.animationDuration = `${6 + Math.random() * 6}s`;
       el.style.fontSize = `${0.95 + Math.random() * 0.7}rem`;
@@ -210,11 +222,12 @@
   }
 
   function burstConfetti() {
-    const count = reduceMotion || window.innerWidth < 500 ? 20 : 70;
+    const { w, h } = viewSize();
+    const count = reduceMotion ? 12 : 22;
     for (let i = 0; i < count; i += 1) {
       confetti.push({
-        x: window.innerWidth * 0.5 + (Math.random() - 0.5) * 80,
-        y: window.innerHeight * 0.42,
+        x: w * 0.5 + (Math.random() - 0.5) * 80,
+        y: h * 0.42,
         vx: (Math.random() - 0.5) * 7.5,
         vy: -Math.random() * 8 - 3,
         w: 4 + Math.random() * 5,
