@@ -31,7 +31,7 @@
   let animatingHearts = false;
   let fxRaf = 0;
 
-  const COLORS = ["#e8c872", "#f7efe6", "#e8b4b8", "#d24a62", "#f0d58a"];
+  const COLORS = ["#d9bc7a", "#f3ebe3", "#e3c2c0", "#c44c62", "#f0d0a8"];
 
   function resizeFx() {
     fx.width = Math.floor(window.innerWidth * devicePixelRatio);
@@ -182,29 +182,29 @@
   }
 
   function spawnBalloons() {
-    const palette = ["#e8b4b8", "#f7efe6", "#e8c872", "#d24a62", "#f3c9d0"];
-    for (let i = 0; i < 8; i += 1) {
+    const palette = ["#e3c2c0", "#d9bc7a", "#c44c62", "#f3ebe3", "#b8924a"];
+    for (let i = 0; i < 7; i += 1) {
       const b = document.createElement("span");
-      b.className = "balloon";
-      b.style.left = `${8 + Math.random() * 76}vw`;
-      b.style.background = `linear-gradient(160deg, #fff6, ${palette[i % palette.length]})`;
-      b.style.animationDelay = `${i * 0.22}s`;
-      b.style.animationDuration = `${6.8 + Math.random() * 2.4}s`;
+      b.className = "orb";
+      b.style.left = `${10 + Math.random() * 76}vw`;
+      b.style.background = palette[i % palette.length];
+      b.style.color = palette[i % palette.length];
+      b.style.animationDelay = `${i * 0.28}s`;
+      b.style.animationDuration = `${7.4 + Math.random() * 2.6}s`;
       balloonsEl.appendChild(b);
     }
   }
 
   function spawnFalling() {
-    const glyphs = ["🌹", "💗", "🤍", "✨", "🌷"];
-    const count = reduceMotion ? 6 : 22;
+    const tpls = ["tplRose", "tplHeart", "tplSpark", "tplRose", "tplHeart"];
+    const count = reduceMotion ? 5 : 16;
     for (let i = 0; i < count; i += 1) {
-      const el = document.createElement("span");
-      el.className = "petal";
-      el.textContent = glyphs[i % glyphs.length];
-      el.style.left = `${4 + Math.random() * 88}vw`;
-      el.style.animationDelay = `${Math.random() * 2.4}s`;
-      el.style.animationDuration = `${6 + Math.random() * 6}s`;
-      el.style.fontSize = `${0.95 + Math.random() * 0.7}rem`;
+      const tpl = document.getElementById(tpls[i % tpls.length]);
+      const el = tpl.content.firstElementChild.cloneNode(true);
+      el.style.left = `${6 + Math.random() * 84}vw`;
+      el.style.animationDelay = `${Math.random() * 2.8}s`;
+      el.style.animationDuration = `${7 + Math.random() * 6}s`;
+      el.style.width = `${18 + Math.random() * 16}px`;
       fallLayer.appendChild(el);
     }
   }
@@ -217,11 +217,12 @@
         y: window.innerHeight * 0.42,
         vx: (Math.random() - 0.5) * 7.5,
         vy: -Math.random() * 8 - 3,
-        w: 4 + Math.random() * 5,
-        h: 7 + Math.random() * 6,
+        w: 5 + Math.random() * 4,
+        h: 8 + Math.random() * 7,
         rot: Math.random() * Math.PI,
-        vr: (Math.random() - 0.5) * 0.18,
+        vr: (Math.random() - 0.5) * 0.14,
         color: COLORS[i % COLORS.length],
+        kind: i % 3 === 0 ? "heart" : "petal",
         life: 1,
       });
     }
@@ -314,8 +315,9 @@
       ty: p.y,
       x: p.x + (Math.random() - 0.5) * 18,
       y: p.y - 28 - Math.random() * 36,
-        size: 6.4 + (i % 3),
-        color: i % 3 === 0 ? "#ff6b81" : "#e45a73",
+        size: 5.8 + (i % 4) * 0.7,
+        color: i % 4 === 0 ? "#c45c6c" : i % 4 === 1 ? "#e08a96" : "#b4495c",
+        rot: (Math.random() - 0.5) * 0.5,
       born: performance.now() + i * 28,
       visible: false,
     }));
@@ -336,7 +338,13 @@
       fxCtx.rotate(p.rot);
       fxCtx.globalAlpha = Math.max(p.life, 0);
       fxCtx.fillStyle = p.color;
-      fxCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      if (p.kind === "heart") {
+        drawHeart(fxCtx, 0, 0, p.w * 0.55, p.color, 1);
+      } else {
+        fxCtx.beginPath();
+        fxCtx.ellipse(0, 0, p.w / 2, p.h / 2, 0, 0, Math.PI * 2);
+        fxCtx.fill();
+      }
       fxCtx.restore();
     });
 
@@ -347,8 +355,12 @@
         if (!heart.visible) return;
         heart.x += (heart.tx - heart.x) * 0.12;
         heart.y += (heart.ty - heart.y) * 0.12;
-        const pulse = 1 + Math.sin(now / 280 + heart.tx) * 0.08;
-        drawHeart(nameCtx, heart.x, heart.y, heart.size * pulse, heart.color, 0.95);
+        const pulse = 1 + Math.sin(now / 320 + heart.tx) * 0.07;
+        nameCtx.save();
+        nameCtx.translate(heart.x, heart.y);
+        nameCtx.rotate(heart.rot || 0);
+        drawHeart(nameCtx, 0, 0, heart.size * pulse, heart.color, 0.96);
+        nameCtx.restore();
       });
     }
 
