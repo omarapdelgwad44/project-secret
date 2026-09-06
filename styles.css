@@ -167,16 +167,24 @@ body {
 
 .gift {
   width: min(72vw, 260px);
-  height: min(80vw, 290px);
-  padding-top: 14%;
+  height: min(78vw, 280px);
+  padding-top: 10%;
 }
 
 .gift-box {
   position: relative;
   width: 100%;
-  height: 86%;
+  height: 88%;
   perspective: 900px;
   filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.45));
+}
+
+.wrap-skin {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .box-inner,
@@ -232,23 +240,34 @@ body {
   border-radius: 0 10px 10px 0;
 }
 
-.ribbon-h {
-  left: -2%;
-  right: -2%;
-  top: 22%;
-  height: 16%;
-  background: linear-gradient(180deg, var(--ribbon-deep), var(--ribbon) 45%, #f08aa0 50%, var(--ribbon) 58%, var(--ribbon-deep));
-  border-radius: 4px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+.ribbon-sash {
+  left: -35%;
+  top: 36%;
+  width: 170%;
+  height: 18%;
+  transform: rotate(-34deg);
+  background: linear-gradient(
+    180deg,
+    #f08aa0 0%,
+    var(--ribbon) 28%,
+    #fff6 48%,
+    var(--ribbon) 58%,
+    var(--ribbon-deep) 100%
+  );
+  border-radius: 3px;
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.18) inset;
 }
 
 .bow {
   position: absolute;
-  left: 50%;
-  top: -2%;
-  width: 48%;
-  height: 38%;
-  transform: translate(-50%, -42%);
+  right: -4%;
+  top: -6%;
+  left: auto;
+  width: 46%;
+  height: 40%;
+  transform: rotate(16deg);
   z-index: 3;
 }
 
@@ -307,8 +326,8 @@ body {
 
 .tag {
   position: absolute;
-  right: -10%;
-  top: 18%;
+  left: -8%;
+  top: 58%;
   z-index: 4;
   padding: 8px 11px;
   background: var(--cream);
@@ -317,7 +336,7 @@ body {
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  transform: rotate(12deg);
+  transform: rotate(-16deg);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
   border-radius: 2px 8px 8px 2px;
 }
@@ -376,8 +395,8 @@ body.is-unwrapping .open-btn {
   animation: fadeOut 0.6s ease forwards;
 }
 
-body.is-unwrapping .ribbon-h {
-  animation: ribbonFlyH 1.15s cubic-bezier(0.22, 0.9, 0.32, 1) forwards;
+body.is-unwrapping .ribbon-sash {
+  animation: ribbonUntie 1.15s cubic-bezier(0.22, 0.9, 0.32, 1) forwards;
 }
 
 body.is-unwrapping .bow {
@@ -400,16 +419,16 @@ body.is-unwrapping .gift {
   animation: giftFade 0.7s 1.55s ease forwards;
 }
 
-@keyframes ribbonFlyH {
+@keyframes ribbonUntie {
   to {
-    transform: translateX(130%) rotate(8deg);
+    transform: rotate(-28deg) translate(28%, -70%);
     opacity: 0;
   }
 }
 
 @keyframes bowUntie {
   to {
-    transform: translate(-50%, -180%) rotate(22deg) scale(0.45);
+    transform: translate(36px, -110px) rotate(38deg) scale(0.45);
     opacity: 0;
   }
 }
@@ -756,8 +775,8 @@ body.is-blown .glow {
 @media (min-width: 700px) {
   .gift {
     width: 280px;
-    height: 310px;
-    padding-top: 36px;
+    height: 300px;
+    padding-top: 28px;
   }
 
   .open-btn:hover,
