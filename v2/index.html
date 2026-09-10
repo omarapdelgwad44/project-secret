@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#1a0f14" />
+    <meta name="description" content="A birthday gift for Jana — October 5" />
+    <title>Happy Birthday, Jana</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Nunito:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B9%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true"></div>
+    <canvas id="fx" class="fx-canvas" aria-hidden="true"></canvas>
+    <div class="fall-layer" id="fallLayer" aria-hidden="true"></div>
+    <div class="flash" id="flash" aria-hidden="true"></div>
+    <div class="balloons" id="balloons" aria-hidden="true"></div>
+
+    <button
+      class="sound-toggle"
+      id="soundToggle"
+      type="button"
+      aria-label="Mute music"
+      aria-pressed="false"
+      hidden
+    >
+      <span class="sound-on" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M4 9v6h3.2L12 19.8V4.2L7.2 9H4zm11 1.5a3.5 3.5 0 0 1 0 3l1.6 1.1a5.5 5.5 0 0 0 0-5.2L15 10.5zm2.6-3.2a8 8 0 0 1 0 9.4l1.6 1.1a10 10 0 0 0 0-11.6l-1.6 1.1z"/>
+        </svg>
+      </span>
+      <span class="sound-off" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M4 9v6h3.2L12 19.8V4.2L7.2 9H4zm12.3-.5 1.4-1.4 1.4 1.4 1.4-1.4 1.4 1.4-1.4 1.4 1.4 1.4-1.4 1.4-1.4-1.4-1.4 1.4-1.4-1.4 1.4-1.4-1.4-1.4z"/>
+        </svg>
+      </span>
+    </button>
+
+    <main class="stage">
+      <section class="gift-scene" id="giftScene">
+        <p class="whisper">A little something, just for you</p>
+        <div class="gift" id="gift">
+          <div class="gift-box">
+            <div class="box-inner"><span class="inner-heart">♥</span></div>
+            <div class="wrap-skin">
+              <div class="paper paper-left"></div>
+              <div class="paper paper-right"></div>
+              <div class="ribbon ribbon-sash"></div>
+            </div>
+            <div class="bow" aria-hidden="true">
+              <span class="bow-loop bow-loop-l"></span>
+              <span class="bow-loop bow-loop-r"></span>
+              <span class="bow-knot"></span>
+              <span class="bow-tail bow-tail-l"></span>
+              <span class="bow-tail bow-tail-r"></span>
+            </div>
+            <div class="tag">October 5</div>
+          </div>
+        </div>
+        <button class="gold-btn" id="openBtn" type="button">Open your gift</button>
+      </section>
+
+      <section class="book-scene" id="bookScene" hidden>
+        <div class="book-stage">
+          <button class="nav-btn nav-prev is-off" id="prevBtn" type="button" aria-label="Previous page">
+            <span aria-hidden="true">‹</span>
+          </button>
+          <div class="storybook" id="storybook">
+          <div class="flipbook" id="flipbook">
+
+            <div class="page page-cover" data-density="hard">
+              <div class="cover-inner">
+                <div class="cover-stars">✦ &nbsp; ✦ &nbsp; ✦</div>
+                <p class="cover-kicker">Once upon a birthday</p>
+                <h1 class="cover-title">Story</h1>
+                <p class="cover-of">of</p>
+                <p class="cover-name">Jana</p>
+                <div class="cover-stars">✦ &nbsp; ✦ &nbsp; ✦</div>
+              </div>
+            </div>
+
+            <div class="page page-sheet" data-density="soft">
+              <div class="brush" data-brush aria-hidden="true"></div>
+              <svg class="art" id="artName" viewBox="0 0 300 440" preserveAspectRatio="xMidYMid meet">
+                <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path data-draw data-dur="0.7" data-fill="1" fill="#d24a62" stroke="#b63d54" stroke-width="1.8" d="M48 58c0-14-12-22-20-12-8-10-20-2-20 12 0 16 20 28 20 28s20-12 20-28z"/>
+                  <path data-draw data-dur="0.45" stroke="#5d8a5a" stroke-width="1.6" d="M28 84c-8-6-18-4-22 4"/>
+                  <path data-draw data-dur="0.7" data-fill="1" fill="#d24a62" stroke="#b63d54" stroke-width="1.8" d="M272 58c0-14-12-22-20-12-8-10-20-2-20 12 0 16 20 28 20 28s20-12 20-28z"/>
+                  <path data-draw data-dur="0.45" stroke="#5d8a5a" stroke-width="1.6" d="M272 84c8-6 18-4 22 4"/>
+                  <path data-draw data-dur="1.1" stroke="#5d8a5a" stroke-width="1.4" d="M24 120c-6 40 8 80-4 120 10 40-6 80 6 118"/>
+                  <path data-draw data-dur="1.1" stroke="#5d8a5a" stroke-width="1.4" d="M276 120c6 40-8 80 4 120-10 40 6 80-6 118"/>
+                  <path data-draw data-dur="0.7" data-fill="1" fill="#d24a62" stroke="#b63d54" stroke-width="1.8" d="M48 392c0-14-12-22-20-12-8-10-20-2-20 12 0 16 20 28 20 28s20-12 20-28z"/>
+                  <path data-draw data-dur="0.7" data-fill="1" fill="#d24a62" stroke="#b63d54" stroke-width="1.8" d="M272 392c0-14-12-22-20-12-8-10-20-2-20 12 0 16 20 28 20 28s20-12 20-28z"/>
+                </g>
+              </svg>
+              <div class="ink ink-name">
+                <p class="hb-line">Happy Birthday to you</p>
+                <h2 class="jana-line">Jana</h2>
+              </div>
+            </div>
+
+            <div class="page page-sheet" data-density="soft">
+              <div class="brush" data-brush aria-hidden="true"></div>
+              <svg class="art" id="artCake" viewBox="0 0 300 440" preserveAspectRatio="xMidYMid meet">
+                <g stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse data-draw data-dur="0.5" data-fill="1" data-fill-opacity="1" cx="150" cy="368" rx="108" ry="16" fill="#efe4d4" stroke="#cbb79a" stroke-width="2.2"/>
+                  <path data-draw data-dur="0.85" data-fill="1" data-fill-opacity="1" fill="#8f3a4a" stroke="#6f2c38" stroke-width="2.2" d="M54 258 h192 a16 16 0 0 1 16 16 v72 a16 16 0 0 1 -16 16 h-192 a16 16 0 0 1 -16 -16 v-72 a16 16 0 0 1 16 -16 z"/>
+                  <path data-draw data-dur="0.7" data-fill="1" data-fill-opacity="1" fill="#f3c9d0" stroke="#e59aa8" stroke-width="1.6" d="M52 258 C68 284 86 246 104 272 C122 294 138 250 150 276 C162 294 178 246 196 272 C214 292 232 248 248 258 L248 246 C206 232 94 232 52 246 Z"/>
+                  <path data-draw data-dur="0.75" data-fill="1" data-fill-opacity="1" fill="#a24a5a" stroke="#7a3340" stroke-width="2.2" d="M90 176 h120 a14 14 0 0 1 14 14 v68 a14 14 0 0 1 -14 14 h-120 a14 14 0 0 1 -14 -14 v-68 a14 14 0 0 1 14 -14 z"/>
+                  <path data-draw data-dur="0.7" data-fill="1" data-fill-opacity="1" fill="#f7d6dc" stroke="#e59aa8" stroke-width="1.6" d="M88 176 C102 198 114 164 128 188 C140 208 146 166 150 190 C154 208 160 166 172 188 C186 206 198 166 212 176 L212 164 C180 152 120 152 88 164 Z"/>
+                  <circle data-draw data-dur="0.25" data-fill="1" data-fill-opacity="1" cx="78" cy="310" r="5" fill="#f3c9d0" stroke="#e59aa8" stroke-width="1"/>
+                  <circle data-draw data-dur="0.25" data-fill="1" data-fill-opacity="1" cx="150" cy="322" r="5" fill="#f3c9d0" stroke="#e59aa8" stroke-width="1"/>
+                  <circle data-draw data-dur="0.25" data-fill="1" data-fill-opacity="1" cx="222" cy="310" r="5" fill="#f3c9d0" stroke="#e59aa8" stroke-width="1"/>
+                  <rect data-draw data-dur="0.32" data-fill="1" data-fill-opacity="1" x="122" y="126" width="8" height="50" rx="2.5" fill="#f3e6c8" stroke="#d4c09a" stroke-width="1.2"/>
+                  <rect data-draw data-dur="0.32" data-fill="1" data-fill-opacity="1" x="146" y="116" width="8" height="60" rx="2.5" fill="#f3e6c8" stroke="#d4c09a" stroke-width="1.2"/>
+                  <rect data-draw data-dur="0.32" data-fill="1" data-fill-opacity="1" x="170" y="128" width="8" height="48" rx="2.5" fill="#f3e6c8" stroke="#d4c09a" stroke-width="1.2"/>
+                  <g class="svg-flames" opacity="0">
+                    <ellipse cx="126" cy="118" rx="5.2" ry="10" fill="#ff9a1f"/>
+                    <ellipse cx="126" cy="120" rx="2.3" ry="5" fill="#ffe27a"/>
+                    <ellipse cx="150" cy="108" rx="5.4" ry="11" fill="#ff9a1f"/>
+                    <ellipse cx="150" cy="110" rx="2.4" ry="5.4" fill="#ffe27a"/>
+                    <ellipse cx="174" cy="120" rx="5.2" ry="10" fill="#ff9a1f"/>
+                    <ellipse cx="174" cy="122" rx="2.3" ry="5" fill="#ffe27a"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+
+            <div class="page page-sheet" data-density="soft">
+              <div class="brush" data-brush aria-hidden="true"></div>
+              <svg class="art" id="artFinal" viewBox="0 0 300 440" preserveAspectRatio="xMidYMid meet">
+                <g fill="none" stroke-linecap="round">
+                  <rect data-draw data-dur="0.8" x="38" y="70" width="224" height="300" rx="8" stroke="#e8c872" stroke-width="1.6"/>
+                  <rect data-draw data-dur="0.6" x="48" y="80" width="204" height="280" rx="6" stroke="#e8c872" stroke-width="1" opacity="0.55"/>
+                  <path data-draw data-dur="0.5" data-fill="1" fill="#d24a62" stroke="#b63d54" stroke-width="1.5" d="M70 92c0-10-8-16-14-8-6-8-14-2-14 8 0 12 14 20 14 20s14-8 14-20z"/>
+                  <path data-draw data-dur="0.5" data-fill="1" fill="#d24a62" stroke="#b63d54" stroke-width="1.5" d="M258 92c0-10-8-16-14-8-6-8-14-2-14 8 0 12 14 20 14 20s14-8 14-20z"/>
+                </g>
+              </svg>
+              <p class="final-line" id="finalLine" lang="ar" dir="rtl">الصغنن حجي<br />كبر سنة 🌚</p>
+            </div>
+
+          </div>
+          </div>
+          <button class="nav-btn nav-next" id="nextBtn" type="button" aria-label="Open the book">
+            <span aria-hidden="true">›</span>
+          </button>
+        </div>
+
+        <button class="gold-btn wish-btn hidden" id="wishBtn" type="button">Make a wish ✨</button>
+      </section>
+    </main>
+
+    <audio id="bgAudio" loop preload="auto">
+      <source src="../assets/audio/bg.mp3" type="audio/mpeg" />
+      <source src="../assets/audio/bg.wav" type="audio/wav" />
+    </audio>
+    <script src="../assets/js/gsap.min.js"></script>
+    <script src="../assets/js/DrawSVGPlugin.min.js"></script>
+    <script src="../assets/js/MotionPathPlugin.min.js"></script>
+    <script src="../assets/js/page-flip.browser.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
