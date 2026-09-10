@@ -3,4 +3,7 @@ Thumbs.db
 *.pyc
 __pycache__/
 _verify/
+node_modules/
+dist/
+*.local
 

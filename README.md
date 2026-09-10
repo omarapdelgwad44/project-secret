@@ -1,42 +1,33 @@
-# Happy Birthday, ####
+# Happy Birthday Storybook
 
-A mobile-first birthday gift site for **** (October 5). Open the wrapped gift, watch the ribbon untie, then celebrate with balloons, falling roses, a heart-written name, and candles to blow out.
+An interactive birthday gift: a wrapped present opens into a cinematic little storybook. Open the gift, turn the pages, draw a rose, blow out the candles, and send a wish into the stars.
 
 ## Preview locally
 
-Open `index.html` in a browser, or from this folder:
+```bash
+npm install
+npm run dev
+```
+
+Then visit the local URL Vite prints (usually `http://localhost:5173`).
+
+## Production build
 
 ```bash
-python -m http.server 8080
+npm run build
+npm run preview
 ```
 
-Then visit `http://localhost:8080`.
+The compiled site is written to `dist/`. Deploy that folder (GitHub Pages, Netlify, or any static host). Because the Vite `base` is `./`, it also works from a project subdirectory.
 
-## Deploy on GitHub Pages
+## Customize
 
-1. Create a public GitHub repository and push this folder to the `main` branch.
-2. On GitHub, open **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-4. Set branch to `main` and folder to `/ (root)`.
-5. Save. After a minute, the site will be at:
+- **Name:** tap the pencil in the storybook header. Default is `Jana`.
+- **Music:** replace `public/audio/bg.mp3` (optional `public/audio/bg.wav`). Music starts when **Open your gift** is pressed. Use the speaker button to mute.
+- Previous static versions remain in `v1/` and `v2/` for reference.
 
-   `https://<your-username>.github.io/<repo-name>/`
+## GitHub Pages
 
-Share that link with #### so she can open it on her phone.
+Pushes to `main` build `dist/` and publish it with GitHub Actions.
 
-## Replace the music
-
-The included loop is an original music-box piece (royalty-free). To use a song she loves, replace:
-
-- `assets/audio/bg.mp3`
-- `assets/audio/bg.wav` (optional fallback)
-
-Keep the same filenames, or update the `<audio>` tags in `index.html`. Music starts when she taps **Open your gift** (phones block autoplay until a tap). Use the speaker button in the corner to mute.
-
-## Customize the final line
-
-Edit this line in `index.html`:
-
-```html
-<p class="final-line" id="finalLine">For ####, with all my love</p>
-```
+Live site: https://omarapdelgwad44.github.io/project-secret/
