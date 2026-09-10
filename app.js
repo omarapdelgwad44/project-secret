@@ -8,6 +8,7 @@
   const celebrateScene = document.getElementById("celebrateScene");
   const titleEl = document.getElementById("title");
   const nameCanvas = document.getElementById("nameCanvas");
+  const artRow = document.getElementById("artRow");
   const cakeArea = document.getElementById("cakeArea");
   const cake = document.getElementById("cake");
   const wishBtn = document.getElementById("wishBtn");
@@ -17,6 +18,7 @@
   const balloonsEl = document.getElementById("balloons");
   const fx = document.getElementById("fx");
   const bgAudio = document.getElementById("bgAudio");
+  const watercolor = document.querySelector(".watercolor-layer");
 
   const fxCtx = fx.getContext("2d");
   const nameCtx = nameCanvas.getContext("2d");
@@ -314,8 +316,8 @@
       ty: p.y,
       x: p.x + (Math.random() - 0.5) * 18,
       y: p.y - 28 - Math.random() * 36,
-        size: 6.4 + (i % 3),
-        color: i % 3 === 0 ? "#ff6b81" : "#e45a73",
+      size: 6.4 + (i % 3),
+      color: i % 3 === 0 ? "#ff6b81" : "#e45a73",
       born: performance.now() + i * 28,
       visible: false,
     }));
@@ -378,6 +380,7 @@
     burstConfetti();
     spawnBalloons();
     spawnFalling();
+    if (watercolor) watercolor.classList.add("is-in");
 
     await wait(500);
     giftScene.hidden = true;
@@ -387,6 +390,7 @@
 
     await wait(2200);
     writeNameWithHearts();
+    if (artRow) artRow.classList.add("is-in");
 
     await wait(2800);
     cakeArea.hidden = false;
@@ -405,6 +409,8 @@
       cakeArea.hidden = false;
       cakeArea.classList.add("is-in");
       spawnFalling();
+      if (watercolor) watercolor.classList.add("is-in");
+      if (artRow) artRow.classList.add("is-in");
       return;
     }
     await playTimeline();
