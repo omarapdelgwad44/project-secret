@@ -133,22 +133,6 @@ input:focus-visible {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.sound-toggle {
-  position: fixed;
-  top: calc(14px + var(--safe-top));
-  right: calc(14px + var(--safe-right));
-  z-index: 30;
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(232, 188, 119, 0.35);
-  border-radius: 50%;
-  color: var(--gold);
-  background: rgba(13, 9, 32, 0.55);
-  backdrop-filter: blur(10px);
-}
-
 /* ── Gift ─────────────────────────────────── */
 
 .gift-scene {
