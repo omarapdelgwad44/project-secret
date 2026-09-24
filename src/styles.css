@@ -11,6 +11,8 @@
   --serif: "Cormorant Garamond", "Times New Roman", serif;
   --sans: "DM Sans", system-ui, sans-serif;
   --script: "Italianno", "Segoe Script", cursive;
+  --hand: "Caveat", "Segoe Script", cursive;
+  --hand-ar: "Aref Ruqaa", "Amiri", "Traditional Arabic", serif;
   --arabic: Cairo, "Segoe UI", Tahoma, sans-serif;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
@@ -777,10 +779,213 @@ input:focus-visible {
 }
 
 .page-sheet {
-  background:
-    linear-gradient(90deg, rgba(164, 90, 120, 0.08), transparent 26px),
-    var(--ivory);
+  position: relative;
   color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(150, 92, 78, 0.14), rgba(150, 92, 78, 0.04) 20px, transparent 34px),
+    radial-gradient(120% 70% at 50% -8%, rgba(255, 255, 255, 0.42), transparent 46%),
+    radial-gradient(90% 42% at 86% 108%, rgba(90, 60, 40, 0.06), transparent 52%),
+    linear-gradient(186deg, #fbf6ea 0%, #f5ebd8 56%, #efe2cc 100%);
+  box-shadow:
+    inset 16px 0 18px -16px rgba(80, 50, 30, 0.16),
+    inset 0 -22px 26px -24px rgba(70, 46, 28, 0.1);
+}
+
+.page-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+
+.page-sheet--sketch {
+  background:
+    linear-gradient(90deg, rgba(150, 92, 78, 0.18), rgba(150, 92, 78, 0.05) 22px, transparent 36px),
+    repeating-linear-gradient(
+      transparent 0 27px,
+      rgba(122, 154, 186, 0.15) 27px 28px
+    ),
+    radial-gradient(ellipse at 16% 10%, rgba(70, 50, 30, 0.055), transparent 38%),
+    radial-gradient(ellipse at 82% 86%, rgba(70, 50, 30, 0.045), transparent 34%),
+    linear-gradient(186deg, #f7f0e0 0%, #f1e5cf 58%, #ead9bf 100%);
+}
+
+.page-sheet--words {
+  background:
+    linear-gradient(90deg, rgba(150, 92, 78, 0.16), rgba(150, 92, 78, 0.04) 20px, transparent 34px),
+    repeating-linear-gradient(
+      transparent 0 31px,
+      rgba(122, 154, 186, 0.16) 31px 32px
+    ),
+    radial-gradient(ellipse at 18% 8%, rgba(70, 50, 30, 0.05), transparent 36%),
+    linear-gradient(186deg, #f8f1e2 0%, #f2e6d0 58%, #ead8be 100%);
+}
+
+.page-sheet--words::after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 20px;
+  bottom: 20px;
+  width: 10px;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    #cbbba0 2.5px,
+    rgba(50, 36, 24, 0.22) 2.8px,
+    transparent 3.3px
+  );
+  background-size: 10px 52px;
+  background-repeat: repeat-y;
+  background-position: center 8px;
+}
+
+.sheet-page--words {
+  gap: 2px;
+  overflow: hidden;
+}
+
+.sheet-page--words .sheet-copy {
+  flex: 0 0 auto;
+  padding: 0 8px;
+}
+
+.words-heading {
+  margin: 0 0 10px;
+  font-family: var(--script);
+  font-size: clamp(1.85rem, 6.4vw, 2.35rem);
+  font-weight: 400;
+  line-height: 0.85;
+  color: var(--blush-deep);
+}
+
+.magic-words {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 9px;
+  flex: 0 0 auto;
+  margin: 2px 8px 0 22px;
+  padding: 4px 4px 6px;
+  list-style: none;
+}
+
+.words-blessing {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  flex: 1 1 auto;
+  min-height: 72px;
+  margin: 0 16px 8px 22px;
+  font-family: var(--hand-ar);
+  font-size: clamp(1.72rem, 6.6vw, 2.45rem);
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+  color: var(--blush-deep);
+  opacity: 0;
+}
+
+.sheet-page--words.is-open .words-blessing {
+  animation: ink-write-rtl 0.85s var(--ease) both;
+  animation-delay: 1.55s;
+}
+
+.magic-line {
+  --i: 0;
+  --tilt: 0deg;
+  margin: 0;
+  color: #2a3348;
+  line-height: 1.35;
+  text-align: center;
+  transform: rotate(var(--tilt));
+  transform-origin: center;
+  opacity: 0;
+}
+
+.magic-emoji {
+  white-space: nowrap;
+}
+
+.sheet-page--words.is-open .magic-line {
+  animation: ink-write 0.7s var(--ease) both;
+  animation-delay: calc(0.16s + var(--i) * 0.18s);
+}
+
+.magic-line--en {
+  font-family: var(--hand);
+  font-size: clamp(1.48rem, 5.2vw, 1.88rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.magic-line--ar {
+  font-family: var(--hand-ar);
+  font-size: clamp(1.22rem, 4.5vw, 1.52rem);
+  font-weight: 700;
+}
+
+.magic-line:nth-child(even) {
+  color: #3a2c28;
+}
+
+.magic-line:nth-child(3n) {
+  color: #24324a;
+}
+
+@keyframes ink-write {
+  from {
+    opacity: 0;
+    clip-path: inset(0 72% 0 0);
+    transform: rotate(var(--tilt)) translateY(7px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: rotate(var(--tilt));
+  }
+}
+
+@keyframes ink-write-rtl {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 0 72%);
+    transform: rotate(var(--tilt)) translateY(7px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: rotate(var(--tilt));
+  }
+}
+
+.sheet-page--words.is-open .magic-line--ar {
+  animation-name: ink-write-rtl;
+}
+
+.page-sheet--sketch::after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 20px;
+  bottom: 20px;
+  width: 10px;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    #cbbba0 2.5px,
+    rgba(50, 36, 24, 0.22) 2.8px,
+    transparent 3.3px
+  );
+  background-size: 10px 52px;
+  background-repeat: repeat-y;
+  background-position: center 8px;
 }
 
 .sheet-page {
@@ -820,6 +1025,538 @@ input:focus-visible {
 .sheet-art--name {
   min-height: 168px;
   width: 100%;
+}
+
+.sheet-art--sketch {
+  min-height: 270px;
+  width: 100%;
+  perspective: 760px;
+}
+
+.sheet-page--sketch {
+  gap: 4px;
+}
+
+.dragon-notebook {
+  appearance: none;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 176px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transform-origin: left center;
+}
+
+.sheet-page--sketch.is-open .dragon-notebook {
+  animation: notebook-in 0.95s var(--ease) both;
+}
+
+.dragon-portrait,
+.dragon-overlay {
+  grid-area: 1 / 1;
+  width: min(100%, 500px);
+  max-height: 410px;
+}
+
+.dragon-portrait {
+  display: block;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transform-origin: center 62%;
+}
+
+.dragon-overlay {
+  height: auto;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.dragon-notebook.is-revealed .dragon-portrait,
+.dragon-notebook.is-static .dragon-portrait {
+  opacity: 1;
+}
+
+.dragon-notebook.is-landed .dragon-portrait {
+  animation: dragon-land 1s var(--ease) both;
+}
+
+.dragon-notebook.is-alive .dragon-portrait {
+  animation: dragon-breathe 5.6s ease-in-out infinite;
+}
+
+.dragon-notebook.is-nudge .dragon-portrait {
+  animation: night-nudge 0.9s ease;
+}
+
+.dragon-sketch {
+  display: block;
+  width: min(100%, 520px);
+  height: auto;
+  max-height: 390px;
+  overflow: visible;
+}
+
+.sketch-ghost {
+  fill: none;
+  stroke: #8a8074;
+  stroke-width: 0.7;
+  stroke-dasharray: 5 6;
+  opacity: 0;
+}
+
+.sketch-erased {
+  fill: none;
+  stroke: #9a9084;
+  stroke-width: 0.9;
+  opacity: 0;
+}
+
+.dragon-sketch .sketch-stroke {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 3200;
+  stroke-dashoffset: 3200;
+}
+
+.dragon--night .sketch-stroke {
+  stroke: #1c1916;
+}
+
+.dragon--light .sketch-stroke {
+  stroke: #6a635a;
+}
+
+.sketch-fill {
+  fill-opacity: 0;
+}
+
+.dragon-sketch .sketch-stroke.sketch-fill--night {
+  fill: #12100c;
+}
+
+.dragon-sketch .sketch-stroke.sketch-fill--light {
+  fill: #e6ddd0;
+}
+
+.sketch-shade {
+  fill: rgba(48, 38, 30, 0.14);
+  opacity: 0;
+}
+
+.sketch-hatch path {
+  fill: none;
+  stroke: #2a2520;
+  stroke-width: 0.65;
+  stroke-linecap: round;
+  opacity: 0;
+}
+
+.dragon--light .sketch-hatch path {
+  stroke: #8a8176;
+  stroke-width: 0.5;
+}
+
+.dragon-eye {
+  fill: #f4eee4;
+  stroke: #2c2824;
+  stroke-width: 1.15;
+  opacity: 0;
+}
+
+.dragon--light .dragon-eye {
+  fill: #fbf7ef;
+  stroke: #6f675e;
+}
+
+.dragon-iris {
+  fill: #4f4c44;
+  opacity: 0;
+}
+
+.dragon--light .dragon-iris {
+  fill: #9a9388;
+}
+
+.dragon-pupil {
+  fill: #161412;
+  opacity: 0;
+}
+
+.dragon-glint {
+  fill: #fffdf8;
+  opacity: 0;
+}
+
+.dragon-lid ellipse {
+  fill: #3a342e;
+}
+
+.dragon--light .dragon-lid ellipse {
+  fill: #eadfcb;
+}
+
+.dragon-lid {
+  transform-box: fill-box;
+  transform-origin: center top;
+  transform: scaleY(0.1);
+}
+
+.dragon-blush {
+  fill: rgba(164, 90, 120, 0.22);
+  opacity: 0;
+}
+
+.pair-heart {
+  fill: none;
+  stroke: var(--blush-deep);
+  stroke-width: 1.35;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.pair-spark {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.05;
+  stroke-linecap: round;
+  opacity: 0;
+}
+
+.sketch-sign {
+  font-family: var(--script);
+  font-size: 20px;
+  fill: #6b645c;
+  opacity: 0;
+}
+
+.dragon-notebook.is-revealed .sketch-ghost {
+  animation: fade-ghost 0.7s ease 0.08s forwards;
+}
+
+.dragon-notebook.is-revealed .sketch-erased {
+  animation: fade-ghost 0.8s ease 0.18s forwards;
+}
+
+.dragon-notebook.is-revealed .dragon--night .sketch-stroke:not(.sketch-fill) {
+  animation: pencil-draw 1.45s var(--ease) 0.12s forwards;
+}
+
+.dragon-notebook.is-revealed .dragon--light .sketch-stroke:not(.sketch-fill) {
+  animation: pencil-draw 1.45s var(--ease) 0.78s forwards;
+}
+
+.dragon-notebook.is-revealed .dragon--night .sketch-fill {
+  animation:
+    pencil-draw 1.45s var(--ease) 0.12s forwards,
+    fill-night 0.85s ease 0.9s forwards;
+}
+
+.dragon-notebook.is-revealed .dragon--light .sketch-fill {
+  animation:
+    pencil-draw 1.45s var(--ease) 0.78s forwards,
+    fill-light 0.85s ease 1.5s forwards;
+}
+
+.dragon-notebook.is-revealed .sketch-shade,
+.dragon-notebook.is-revealed .dragon-eye,
+.dragon-notebook.is-revealed .dragon-iris,
+.dragon-notebook.is-revealed .dragon-pupil,
+.dragon-notebook.is-revealed .dragon-glint,
+.dragon-notebook.is-revealed .dragon-blush,
+.dragon-notebook.is-revealed .sketch-sign {
+  animation: fade-in 0.7s ease 1.35s forwards;
+}
+
+.dragon-notebook.is-revealed .sketch-hatch path {
+  animation: fade-hatch 0.6s ease 1.4s forwards;
+}
+
+.dragon-notebook.is-revealed .dragon--light .dragon-eye,
+.dragon-notebook.is-revealed .dragon--light .dragon-iris,
+.dragon-notebook.is-revealed .dragon--light .dragon-pupil,
+.dragon-notebook.is-revealed .dragon--light .dragon-glint,
+.dragon-notebook.is-revealed .dragon--light .dragon-blush {
+  animation-delay: 1.85s;
+}
+
+.dragon-notebook.is-static .sketch-ghost,
+.dragon-notebook.is-static .sketch-erased,
+.dragon-notebook.is-static .sketch-shade,
+.dragon-notebook.is-static .sketch-hatch path,
+.dragon-notebook.is-static .dragon-eye,
+.dragon-notebook.is-static .dragon-iris,
+.dragon-notebook.is-static .dragon-pupil,
+.dragon-notebook.is-static .dragon-glint,
+.dragon-notebook.is-static .dragon-blush,
+.dragon-notebook.is-static .sketch-sign,
+.dragon-notebook.is-static .pair-heart {
+  animation: none;
+  opacity: 0.22;
+}
+
+.dragon-notebook.is-static .sketch-sign,
+.dragon-notebook.is-static .dragon-eye,
+.dragon-notebook.is-static .dragon-iris,
+.dragon-notebook.is-static .dragon-pupil,
+.dragon-notebook.is-static .dragon-glint,
+.dragon-notebook.is-static .dragon-blush,
+.dragon-notebook.is-static .sketch-shade {
+  opacity: 1;
+}
+
+.dragon-notebook.is-static .sketch-hatch path {
+  opacity: 0.38;
+}
+
+.dragon-notebook.is-static .pair-heart {
+  opacity: 0.7;
+}
+
+.dragon-notebook.is-static .sketch-stroke {
+  animation: none;
+  stroke-dashoffset: 0;
+}
+
+.dragon-notebook.is-static .sketch-fill--night {
+  animation: none;
+  fill-opacity: 0.9;
+}
+
+.dragon-notebook.is-static .sketch-fill--light {
+  animation: none;
+  fill-opacity: 0.64;
+}
+
+.dragon-body,
+.dragon-head,
+.dragon-wing,
+.dragon-tail,
+.dragon-lid,
+.dragon-glint,
+.pair-mark {
+  transform-box: fill-box;
+}
+
+.dragon-body {
+  transform-origin: center bottom;
+}
+
+.dragon-head {
+  transform-origin: 50% 90%;
+}
+
+.dragon--night .dragon-wing {
+  transform-origin: 80% 88%;
+}
+
+.dragon--light .dragon-wing {
+  transform-origin: 20% 88%;
+}
+
+.dragon--night .dragon-tail {
+  transform-origin: right top;
+}
+
+.dragon--light .dragon-tail {
+  transform-origin: left top;
+}
+
+.dragon-lid {
+  transform-origin: center top;
+}
+
+.pair-mark {
+  transform-origin: center;
+}
+
+.dragon-notebook.is-alive .dragon--night .dragon-body {
+  animation: dragon-breathe 5.1s ease-in-out infinite;
+}
+
+.dragon-notebook.is-alive .dragon--light .dragon-body {
+  animation: dragon-breathe 5.8s ease-in-out 0.55s infinite;
+}
+
+.dragon-notebook.is-alive .dragon--night .dragon-head {
+  animation: night-look 9.2s ease-in-out infinite;
+}
+
+.dragon-notebook.is-alive .dragon--light .dragon-head {
+  animation: light-look 9.8s ease-in-out 0.4s infinite;
+}
+
+.dragon-notebook.is-alive .dragon--night .dragon-lid {
+  animation: dragon-blink 7.4s ease-in-out 1.2s infinite;
+}
+
+.dragon-notebook.is-alive .dragon--light .dragon-lid {
+  animation: dragon-blink 8.6s ease-in-out 3.6s infinite;
+}
+
+.dragon-notebook.is-alive .dragon--night .dragon-wing--front {
+  animation: wing-flex 6.6s ease-in-out infinite;
+}
+
+.dragon-notebook.is-alive .dragon--light .dragon-wing--front {
+  animation: wing-flex-alt 7.2s ease-in-out 0.9s infinite;
+}
+
+.dragon-notebook.is-alive .dragon--night .dragon-wing--back {
+  animation: wing-flex 8.4s ease-in-out 0.35s infinite;
+}
+
+.dragon-notebook.is-alive .dragon--light .dragon-wing--back {
+  animation: wing-flex-alt 8.8s ease-in-out 1.1s infinite;
+}
+
+.dragon-notebook.is-alive .dragon--night .dragon-tail {
+  animation: tail-sway 7.8s ease-in-out infinite;
+}
+
+.dragon-notebook.is-alive .dragon--light .dragon-tail {
+  animation: tail-sway-alt 8.4s ease-in-out 0.7s infinite;
+}
+
+.dragon-notebook.is-alive .dragon-glint {
+  animation: glint-soft 5.4s ease-in-out 2s infinite;
+}
+
+.dragon-notebook.is-alive .pair-heart {
+  animation: heart-soft 6.4s ease-in-out 0.2s infinite;
+}
+
+.dragon-notebook.is-alive .pair-spark {
+  animation: spark-soft 5.8s ease-in-out 0.6s infinite;
+}
+
+.dragon-notebook.is-nudge .dragon-lid {
+  animation: dragon-blink 0.55s ease-in-out;
+}
+
+.dragon-notebook.is-nudge .dragon--night .dragon-head {
+  animation: night-nudge 0.9s ease;
+}
+
+.dragon-notebook.is-nudge .dragon--light .dragon-head {
+  animation: light-nudge 0.9s ease;
+}
+
+.dragon-notebook.is-nudge .pair-heart {
+  animation: heart-pop 0.9s ease;
+}
+
+/* ── Sky flight across the site ───────────── */
+
+.sky-flight {
+  position: fixed;
+  inset: 0;
+  z-index: 18;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sky-flyer-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: min(40vw, 390px);
+  opacity: 0;
+  will-change: transform;
+  transform-origin: 50% 58%;
+}
+
+.sky-flyer-glide {
+  will-change: transform;
+  transform-origin: 50% 62%;
+}
+
+.sky-flyer {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.sky-sil {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sky-sil--night {
+  fill: #110e18;
+  stroke: #3a3348;
+  stroke-width: 1.6;
+}
+
+.sky-sil--light {
+  fill: #f4eee4;
+  stroke: #2c2620;
+  stroke-width: 1.85;
+}
+
+.sky-line {
+  fill: none;
+  stroke: rgba(232, 220, 200, 0.28);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
+
+.dragon--light .sky-line {
+  stroke: rgba(40, 32, 24, 0.35);
+}
+
+.sky-eye--night {
+  fill: #efe6d4;
+}
+
+.sky-eye--light {
+  fill: #fffaf2;
+  stroke: #2c2620;
+  stroke-width: 1.1;
+}
+
+.sky-pupil {
+  fill: #16120c;
+}
+
+.sky-glint {
+  fill: #fffdf8;
+}
+
+.sky-flight .dragon--night .dragon-wing--back {
+  transform-box: fill-box;
+  transform-origin: 82% 86%;
+  animation: sky-flap 0.58s ease-in-out infinite;
+}
+
+.sky-flight .dragon--light .dragon-wing--back {
+  transform-box: fill-box;
+  transform-origin: 18% 86%;
+  animation: sky-flap-alt 0.62s ease-in-out 0.08s infinite;
+}
+
+.sky-flight .dragon--night .dragon-tail {
+  transform-box: fill-box;
+  transform-origin: 80% 10%;
+  animation: tail-sway 1.4s ease-in-out infinite;
+}
+
+.sky-flight .dragon--light .dragon-tail {
+  transform-box: fill-box;
+  transform-origin: 20% 10%;
+  animation: tail-sway-alt 1.5s ease-in-out 0.1s infinite;
 }
 
 .rose-name {
@@ -1300,6 +2037,231 @@ input:focus-visible {
   }
 }
 
+@keyframes pencil-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes notebook-in {
+  from {
+    opacity: 0;
+    transform: rotateY(-7deg) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-ghost {
+  to { opacity: 0.14; }
+}
+
+@keyframes fade-in {
+  to { opacity: 1; }
+}
+
+@keyframes fade-hatch {
+  to { opacity: 0.38; }
+}
+
+@keyframes fill-night {
+  to { fill-opacity: 0.9; }
+}
+
+@keyframes fill-light {
+  to { fill-opacity: 0.64; }
+}
+
+@keyframes dragon-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.018, 0.988); }
+}
+
+@keyframes night-look {
+  0%, 100% { transform: rotate(0deg); }
+  42%, 68% { transform: rotate(2.4deg); }
+}
+
+@keyframes light-look {
+  0%, 100% { transform: rotate(0deg); }
+  46%, 72% { transform: rotate(-2.6deg); }
+}
+
+@keyframes dragon-blink {
+  0%, 86%, 94%, 100% { transform: scaleY(0.1); }
+  90% { transform: scaleY(1); }
+}
+
+@keyframes wing-flex {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-3.2deg); }
+}
+
+@keyframes wing-flex-alt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes tail-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3.6deg); }
+}
+
+@keyframes tail-sway-alt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-3.4deg); }
+}
+
+@keyframes glint-soft {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+@keyframes heart-soft {
+  0%, 100% { opacity: 0.15; transform: scale(0.92); }
+  50% { opacity: 0.8; transform: scale(1); }
+}
+
+@keyframes spark-soft {
+  0%, 70%, 100% { opacity: 0; }
+  78% { opacity: 0.7; }
+}
+
+@keyframes night-nudge {
+  0%, 100% { transform: rotate(0deg); }
+  40% { transform: rotate(6deg); }
+}
+
+@keyframes light-nudge {
+  0%, 100% { transform: rotate(0deg); }
+  40% { transform: rotate(-6deg); }
+}
+
+@keyframes dragon-land {
+  from {
+    opacity: 0.15;
+    transform: translateY(-16px) scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fly-in-left {
+  0% {
+    transform: translate(-72vw, 8vh) rotate(-6deg) scale(0.94);
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  22% {
+    transform: translate(-34vw, 1vh) rotate(-4deg) scale(0.98);
+  }
+  46% {
+    transform: translate(-8vw, -2vh) rotate(-1deg) scale(1);
+  }
+  70% {
+    transform: translate(7vw, 1vh) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  88% {
+    transform: translate(13vw, 8vh) rotate(2deg) scale(0.55);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(16vw, 18vh) rotate(3deg) scale(0.16);
+    opacity: 0;
+  }
+}
+
+@keyframes fly-in-right {
+  0% {
+    transform: translate(72vw, 6vh) rotate(6deg) scale(0.94);
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  22% {
+    transform: translate(34vw, 0) rotate(4deg) scale(0.98);
+  }
+  46% {
+    transform: translate(8vw, -3vh) rotate(1deg) scale(1);
+  }
+  70% {
+    transform: translate(-7vw, 1vh) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  88% {
+    transform: translate(-13vw, 8vh) rotate(-2deg) scale(0.55);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-16vw, 18vh) rotate(-3deg) scale(0.16);
+    opacity: 0;
+  }
+}
+
+@keyframes flyer-lift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes sky-flap {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-11deg); }
+}
+
+@keyframes sky-flap-alt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
+}
+
+@keyframes fly-in-left-mobile {
+  0% {
+    transform: translate(-88vw, 12vh) rotate(-6deg) scale(0.9);
+    opacity: 0;
+  }
+  8% { opacity: 1; }
+  40% {
+    transform: translate(-10vw, 2vh) rotate(-2deg) scale(1);
+  }
+  66% {
+    transform: translate(6vw, 3vh) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(10vw, 20vh) scale(0.18);
+    opacity: 0;
+  }
+}
+
+@keyframes fly-in-right-mobile {
+  0% {
+    transform: translate(88vw, 10vh) rotate(6deg) scale(0.9);
+    opacity: 0;
+  }
+  8% { opacity: 1; }
+  40% {
+    transform: translate(10vw, 1vh) rotate(2deg) scale(1);
+  }
+  66% {
+    transform: translate(-6vw, 3vh) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-10vw, 20vh) scale(0.18);
+    opacity: 0;
+  }
+}
+
 @media (max-width: 860px) {
   .book-layout {
     grid-template-columns: 1fr;
@@ -1369,6 +2331,48 @@ input:focus-visible {
     max-width: 100%;
     padding: 0 12px;
   }
+
+  .dragon-portrait,
+  .dragon-overlay {
+    max-height: 300px;
+  }
+
+  .sky-flyer-track {
+    width: min(62vw, 320px);
+  }
+
+  .sheet-page--sketch .note-title {
+    font-size: 1.28rem;
+    margin-bottom: 2px;
+  }
+
+  .sheet-page--sketch .note-body {
+    font-size: 0.8rem;
+  }
+
+  .words-heading {
+    font-size: 1.7rem;
+    margin-bottom: 6px;
+  }
+
+  .magic-words {
+    gap: 6px;
+    margin: 0 6px 0 20px;
+  }
+
+  .magic-line--en {
+    font-size: 1.34rem;
+  }
+
+  .magic-line--ar {
+    font-size: 1.16rem;
+  }
+
+  .words-blessing {
+    margin: 0 12px 6px 18px;
+    font-size: 1.5rem;
+    min-height: 56px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1378,11 +2382,37 @@ input:focus-visible {
   .flame,
   .rise,
   .book-scene,
-  .wish-stars span {
+  .wish-stars span,
+  .dragon-notebook,
+  .dragon-notebook.is-alive .dragon-body,
+  .dragon-notebook.is-alive .dragon-head,
+  .dragon-notebook.is-alive .dragon-lid,
+  .dragon-notebook.is-alive .dragon-wing--front,
+  .dragon-notebook.is-alive .dragon-wing--back,
+  .dragon-notebook.is-alive .dragon-tail,
+  .dragon-notebook.is-alive .dragon-glint,
+  .dragon-notebook.is-alive .pair-heart,
+  .dragon-notebook.is-alive .pair-spark,
+  .dragon-notebook.is-landed .dragon-portrait,
+  .dragon-notebook.is-alive .dragon-portrait,
+  .sheet-page--sketch.is-open .dragon-notebook,
+  .sky-flight,
+  .sky-flyer-track,
+  .sky-flyer-body,
+  .sky-flyer,
+  .sheet-page--words.is-open .magic-line,
+  .sheet-page--words.is-open .words-blessing {
     animation: none !important;
   }
 
-  .draw-line {
+  .sheet-page--words.is-open .magic-line,
+  .sheet-page--words.is-open .words-blessing {
+    opacity: 1;
+    clip-path: none;
+  }
+
+  .draw-line,
+  .dragon-notebook .sketch-stroke {
     stroke-dashoffset: 0;
     fill-opacity: 1;
   }

@@ -8,8 +8,8 @@ export function ChapterTwo() {
   return (
     <article className="sheet-page sheet-page--wish">
       <header className="sheet-top">
-        <span>02 / 02</span>
-        <span>chapter two · make it sparkle</span>
+        <span>04 / 04</span>
+        <span>chapter four · make it sparkle</span>
       </header>
       <div className="wish-cluster">
         <div className="sheet-copy">

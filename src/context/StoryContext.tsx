@@ -4,6 +4,8 @@ export type StoryContextValue = {
   name: string;
   reduced: boolean;
   rose: boolean;
+  sketch: boolean;
+  words: boolean;
   cake: boolean;
   wished: boolean;
   onWish: () => void;

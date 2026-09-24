@@ -7,7 +7,7 @@ export function ChapterOne() {
   return (
     <article className="sheet-page">
       <header className="sheet-top">
-        <span>01 / 02</span>
+        <span>01 / 04</span>
         <span>chapter one · the day begins</span>
       </header>
       <div className="sheet-copy">

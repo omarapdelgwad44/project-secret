@@ -6,15 +6,18 @@ import {
   Sparkles,
   Star,
 } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import HTMLFlipBook, { type FlipBookApi } from "react-pageflip";
 import { StoryContext } from "../context/StoryContext";
 import { useBookSize } from "../hooks/useBookSize";
 import { BookPage } from "./BookPage";
 import { NameEditor } from "./NameEditor";
+import { SkyFlight } from "./SkyFlight";
 import { CoverPage } from "./pages/CoverPage";
 import { ChapterOne } from "./pages/ChapterOne";
+import { ChapterSketch } from "./pages/ChapterSketch";
 import { ChapterTwo } from "./pages/ChapterTwo";
+import { ChapterWords } from "./pages/ChapterWords";
 
 type BookSceneProps = {
   name: string;
@@ -23,7 +26,7 @@ type BookSceneProps = {
   onReplay: () => void;
 };
 
-const STAGES = ["cover", "note", "wish"] as const;
+const STAGES = ["cover", "note", "sketch", "words", "wish"] as const;
 
 export function BookScene({
   name,
@@ -37,11 +40,15 @@ export function BookScene({
   const [page, setPage] = useState(0);
   const [wished, setWished] = useState(false);
   const [rose, setRose] = useState(false);
+  const [sketch, setSketch] = useState(false);
+  const [words, setWords] = useState(false);
   const [cake, setCake] = useState(false);
+  const [landed, setLanded] = useState(reduced);
+  const [flightDone, setFlightDone] = useState(reduced);
 
   const atCover = page === 0;
-  const atWish = page === 2;
-  const atEnd = page === 2 && wished;
+  const atWish = page === 4;
+  const atEnd = page === 4 && wished;
   const canAdvance = !atWish || wished;
 
   const nextLabel = useMemo(() => {
@@ -51,17 +58,25 @@ export function BookScene({
     return "Turn the page";
   }, [atCover, atEnd, atWish, wished]);
 
+  useEffect(() => {
+    if (page !== 2 || !reduced) return;
+    setLanded(true);
+    setFlightDone(true);
+  }, [page, reduced]);
+
   const story = useMemo(
     () => ({
       name,
       reduced,
       rose,
+      sketch: sketch && landed,
+      words,
       cake,
       wished,
       onWish: () => setWished(true),
       onReplay,
     }),
-    [cake, name, onReplay, reduced, rose, wished]
+    [cake, landed, name, onReplay, reduced, rose, sketch, wished, words]
   );
 
   const getApi = (): FlipBookApi | null => {
@@ -98,7 +113,9 @@ export function BookScene({
   const onFlip = (event: { data: number }) => {
     setPage(event.data);
     if (event.data >= 1) setRose(true);
-    if (event.data >= 2) setCake(true);
+    if (event.data >= 2) setSketch(true);
+    if (event.data >= 3) setWords(true);
+    if (event.data >= 4) setCake(true);
   };
 
   const onNext = () => {
@@ -118,6 +135,12 @@ export function BookScene({
       <BookPage key="one" className="page-sheet">
         <ChapterOne />
       </BookPage>,
+      <BookPage key="sketch" className="page-sheet page-sheet--sketch">
+        <ChapterSketch />
+      </BookPage>,
+      <BookPage key="words" className="page-sheet page-sheet--words">
+        <ChapterWords />
+      </BookPage>,
       <BookPage key="two" className="page-sheet">
         <ChapterTwo />
       </BookPage>,
@@ -128,6 +151,9 @@ export function BookScene({
   return (
     <StoryContext.Provider value={story}>
       <section className="book-scene">
+        {page === 2 && !flightDone && !reduced ? (
+          <SkyFlight onArrive={() => setLanded(true)} onDone={() => setFlightDone(true)} />
+        ) : null}
         <header className="book-header">
           <div className="brand">
             <p className="brand-mark">
@@ -158,7 +184,7 @@ export function BookScene({
               ))}
             </ol>
             <p className="page-readout" aria-live="polite">
-              {atCover ? "the cover" : `page 0${page} / 02`}
+              {atCover ? "the cover" : `page 0${page} / 04`}
             </p>
           </aside>
 
