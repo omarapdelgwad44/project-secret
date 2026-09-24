@@ -6,7 +6,7 @@ function measureBook() {
 
   if (vw < 860) {
     const width = Math.min(332, Math.max(268, vw - 40));
-    const height = Math.min(width * 1.44, Math.max(400, vh * 0.56));
+    const height = Math.min(width * 1.58, Math.max(440, vh * 0.66));
     return {
       width: Math.round(width),
       height: Math.round(height),
