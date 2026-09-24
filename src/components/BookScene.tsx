@@ -22,7 +22,6 @@ import { ChapterWords } from "./pages/ChapterWords";
 type BookSceneProps = {
   name: string;
   reduced: boolean;
-  onNameChange: (name: string) => void;
   onReplay: () => void;
 };
 
@@ -31,7 +30,6 @@ const STAGES = ["cover", "note", "sketch", "words", "wish"] as const;
 export function BookScene({
   name,
   reduced,
-  onNameChange,
   onReplay,
 }: BookSceneProps) {
   const bookRef = useRef<HTMLFlipBook>(null);
@@ -162,7 +160,7 @@ export function BookScene({
             </p>
             <p className="brand-sub">birthday edition · vol. 01</p>
           </div>
-          <NameEditor name={name} onChange={onNameChange} />
+          <NameEditor name={name} />
         </header>
 
         <div className="book-layout">

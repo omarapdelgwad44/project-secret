@@ -464,7 +464,6 @@ input:focus-visible {
   max-width: 1120px;
   width: 100%;
   margin: 0 auto 18px;
-  padding-right: 56px;
 }
 
 .brand-mark {
@@ -2305,21 +2304,8 @@ input:focus-visible {
     max-width: 11rem;
   }
 
-  .for-line {
-    max-width: 6.8rem;
-    text-align: right;
-  }
-
   .for-line span {
-    display: block;
     font-size: 1.15rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .name-popover {
-    right: -8px;
   }
 
   .sheet-top span:last-child {
