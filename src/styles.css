@@ -2332,6 +2332,39 @@ input:focus-visible {
     letter-spacing: 0.06em;
   }
 
+  .sheet-page--sketch {
+    min-height: 0;
+  }
+
+  .sheet-art--sketch {
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .sheet-page--sketch .dragon-notebook {
+    position: absolute;
+    inset: 0;
+    height: auto;
+    min-height: 0;
+  }
+
+  .sheet-page--sketch .dragon-portrait,
+  .sheet-page--sketch .dragon-overlay {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .sketch-note {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 auto;
+    margin-top: 10px;
+  }
+
   .for-line span {
     font-size: 1.25rem;
   }
@@ -2358,11 +2391,6 @@ input:focus-visible {
   .wish-btn {
     max-width: 100%;
     padding: 0 12px;
-  }
-
-  .dragon-portrait,
-  .dragon-overlay {
-    max-height: 300px;
   }
 
   .sky-flyer-track {
