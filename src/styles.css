@@ -1011,9 +1011,24 @@ input:focus-visible {
 }
 
 .sheet-art--sketch {
-  min-height: 270px;
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
   perspective: 760px;
+}
+
+.sketch-note {
+  margin: 0;
+  text-align: center;
+  font-family: var(--hand);
+  font-size: clamp(1.2rem, 3.6vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #3a2c44;
+}
+
+.sketch-emoji {
+  white-space: nowrap;
 }
 
 .sheet-page--sketch {
@@ -2359,8 +2374,9 @@ input:focus-visible {
     margin-bottom: 2px;
   }
 
-  .sheet-page--sketch .note-body {
-    font-size: 0.8rem;
+  .sketch-note {
+    font-size: 1.05rem;
+    line-height: 1.2;
   }
 
 }

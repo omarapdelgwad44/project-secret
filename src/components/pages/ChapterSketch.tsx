@@ -17,7 +17,11 @@ export function ChapterSketch() {
       <div className="sheet-art sheet-art--sketch">
         <DragonSketch name={name} revealed={sketch} reduced={reduced} />
       </div>
-      <p className="note-body">They keep a quiet kind of watch.</p>
+      <p className="sketch-note">
+        We met just a few <span className="sketch-emoji">days ago ✨</span>, but they
+        already feel like the best of my <span className="sketch-emoji">life 🌙</span>.
+        I'm willing to make beautiful memories with you ❤️🌚
+      </p>
     </article>
   );
 }
